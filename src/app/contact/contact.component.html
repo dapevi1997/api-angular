@@ -1,0 +1,53 @@
+<h2 class="accordion-header" id="headingOne">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="" [attr.data-bs-target]="'#c'+i"
+        aria-expanded="true" aria-controls="collapseOne">
+        {{contacto.nombre}}
+    </button>
+</h2>
+
+<div [id]="'c'+i" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+        <strong>Nombre: </strong> {{contacto.nombre}} 
+        <br>
+        <strong>Celular: </strong> {{contacto.celular}}
+        <br>
+        <button type="button" [id]="contacto.nombre" class="btn btn-secondary" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#modalActualizar" (click)="prueba()">Actualizar</button>
+        <button type="button" class="btn btn-danger" style="margin-top: 10px; margin-left: 10px;" (click)="deleteContact()">Eliminar</button>
+    </div>
+</div>
+
+<div class="modal fade" id="modalActualizar" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitleA" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleA">Actualizar contacto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modalActualizar" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+            
+          <form id="idFormUpdate" autocomplete="on" [formGroup]="formUpdate">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="2" placeholder="Nombre" formControlName="nombre">
+              <div *ngIf="formUpdate.get('nombre')?.hasError('required') && formUpdate.pristine === false">El nombre es
+                requerido</div>
+              <label for="floatingInput2">Nombre</label>
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control" id="floatingPassword2" placeholder="Número de celular" formControlName="celular">
+              <div *ngIf="formUpdate.get('celular')?.hasError('required') && formUpdate.pristine === false">El número de celular es
+                requerido</div>
+              <label for="floatingPassword2">Celular</label>
+            </div>
+          </form>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateContacto()" [disabled]="formUpdate.invalid" form="idFormUpdate">Actualizar</button>
+        </div>
+      </div>
+  
+    </div>
+  
+  </div>
+
